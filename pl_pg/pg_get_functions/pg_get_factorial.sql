@@ -8,15 +8,15 @@ declare
    io integer;
     begin
         case 
-	        when f is null then
-		         io := 0;
+	    when f is null then
+		 io := 0;
             when f <= 0 then
-	             io := 1;
-	        else
-		         io := f;
-	            for i in reverse f..2 loop
-                    io := io * (i - 1);
-                end loop;
+	         io := 1;
+	    else
+		 io := f;
+	      for i in reverse f..2 loop
+                 io := io * (i - 1);
+              end loop;
         end case;
         return io;
     end;
