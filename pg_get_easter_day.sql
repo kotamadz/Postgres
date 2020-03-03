@@ -20,18 +20,18 @@ declare
   p  integer; 
 begin
 	if yyyy > 2099 or yyyy < 1900 or yyyy is null then
-        return null;
+           return null;
 	else
-        yy := cast(yyyy as varchar(4));
-        ea := yy || '-03-31';
-        n  := yyyy - 1900;
-        a  := n % 19;
-        b  := floor( ( a * 7 + 1 ) / 19 );
-        c  := ( 11 * a - b + 4 ) % 29;
-        d  := floor( n / 4 );
-        e  := ( n - c + d + 31 ) % 7;
-        p  := 25 - c - e;
-		ea := to_char(to_date(ea, 'yyyy-mm-dd')  + p, 'yyyy-mm-dd') || ' 00:00:00';
+           yy := cast(yyyy as varchar(4));
+           ea := yy || '-03-31';
+           n  := yyyy - 1900;
+           a  := n % 19;
+           b  := floor( ( a * 7 + 1 ) / 19 );
+           c  := ( 11 * a - b + 4 ) % 29;
+           d  := floor( n / 4 );
+           e  := ( n - c + d + 31 ) % 7;
+           p  := 25 - c - e;
+	   ea := to_char(to_date(ea, 'yyyy-mm-dd')  + p, 'yyyy-mm-dd') || ' 00:00:00';
         return cast(ea as timestamp);
     end if;
 end;  
