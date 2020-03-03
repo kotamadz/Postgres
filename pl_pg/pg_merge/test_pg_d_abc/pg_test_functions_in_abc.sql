@@ -1,3 +1,5 @@
+-- Programmed by Kotama.dz
+
 -- exemple to test functions
 
 -- insert one record
