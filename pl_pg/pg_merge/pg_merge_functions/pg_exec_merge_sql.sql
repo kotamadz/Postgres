@@ -29,19 +29,19 @@ function pg_get_merge_sql(
 drop function if exists pg_exec_merge_sql cascade;
 create or replace function pg_exec_merge_sql(
         in  src_schema   character varying default null::character varying,
-		in  src_table    character varying default null::character varying,
+	in  src_table    character varying default null::character varying,
         in  his_table    character varying default null::character varying,
-		in  trg_schema   character varying default null::character varying,
-		in  trg_table    character varying default null::character varying,
-		in  bk           character varying default null::character varying,
-		out deleted_row  integer,
-		out inserted_row integer,
-		out updated_row  integer,
-	    out pg_exec_state   text,
-		out pg_exec_msg     text)
+	in  trg_schema   character varying default null::character varying,
+	in  trg_table    character varying default null::character varying,
+	in  bk           character varying default null::character varying,
+	out deleted_row  integer,
+	out inserted_row integer,
+	out updated_row  integer,
+	out pg_exec_state   text,
+	out pg_exec_msg     text)
 		
-		returns record 
-		language 'plpgsql' 
+	returns record 
+	language 'plpgsql' 
 		
 as $BODY$
 declare
@@ -192,3 +192,11 @@ begin
   
 end;
 $BODY$;
+							      
+-- select * from pg_exec_merge_sql('public','d_abc','d_abc_hist','datamart','dim_abc','id');
+-- select * from pg_exec_merge_sql('publi','d_abc','d_abc_hist','datamart','dim_abc','id');
+-- select * from pg_exec_merge_sql('public','dabc','d_abc_hist','datamart','dim_abc','id');
+-- select * from pg_exec_merge_sql('public','d_abc','dabc_hist','datamart','dim_abc','id');
+-- select * from pg_exec_merge_sql('public','d_abc','d_abc_hist','datmart','dim_abc','id');
+-- select * from pg_exec_merge_sql('public','d_abc','d_abc_hist','datamart','dimabc','id');
+-- select * from pg_exec_merge_sql('public','d_abc','d_abc_hist','datamart','dim_abc','d');
