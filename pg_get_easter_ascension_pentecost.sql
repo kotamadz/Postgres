@@ -1,5 +1,10 @@
 -- funtion public.pg_get_easter_ascension_pentecost
--- drop function
+-- returns record contains 3 fields :
+-- easter day
+-- ascension day
+-- pentecost day
+-- year between 1900 - 2099 ( 200 years ) 
+-- drop function if exists
 drop function if exists public.pg_get_easter_ascension_pentecost cascade;
 create or replace function public.pg_get_easter_ascension_pentecost(
 	yyyy integer default null::integer,
@@ -23,8 +28,10 @@ as $body$
 	   pentencost := easter +  interval '49 day';
 	end if;
   end;
+					       
 $body$;
 
+-- Exemple to use :					       			       
 /*
 select 
    yyyy, 
