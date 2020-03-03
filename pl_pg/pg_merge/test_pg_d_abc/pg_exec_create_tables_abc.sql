@@ -8,11 +8,11 @@ function pg_exec_create_tables(
 		in  is_drop    boolean default false)
 */
 
--- execute create tables with null 5 arguments is initialize to false by default
--- in this case the function drop not existing tables
+-- execute create tables with 5 arguments are initialize to null by default but is_drop to false by default
+-- in this case the function don't drop existing tables
 select * from pg_exec_create_tables('public', 'd_abc', 'd_abc_hist', 'datamart', 'dim_abc');
 or 
--- in this case the function drop not existing tables
+-- in this case the function don't drop existing tables
 select * from pg_exec_create_tables('public', 'd_abc', 'd_abc_hist', 'datamart', 'dim_abc', false);
 or
 -- in this case the function drop existing tables
