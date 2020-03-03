@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 -- function public.public.pg_get_fibonacci_sequence
 -- drop function
 drop function if exists public.public.pg_get_fibonacci_sequence cascade;
