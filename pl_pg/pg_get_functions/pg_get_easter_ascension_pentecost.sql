@@ -17,11 +17,11 @@ as $body$
 	   easter     := null;
 	   ascension  := null;
 	   pentencost := null;
-	else
-       easter     := (select pg_get_easter_day(yyyy));
+    else
+           easter     := (select pg_get_easter_day(yyyy));
 	   ascension  := easter +  interval '39 day';
 	   pentencost := easter +  interval '49 day';
-	end if;
+    end if;
   end;
 $body$;
 
