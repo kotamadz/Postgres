@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 /*
 function pg_get_merge_sql(
         in  src_schema   character varying,
