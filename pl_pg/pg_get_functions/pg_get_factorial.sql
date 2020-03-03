@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 -- function public.public.pg_get_factorial
 -- drop function
 drop function if exists public.public.pg_get_factorial cascade;
