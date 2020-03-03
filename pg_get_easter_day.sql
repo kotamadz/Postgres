@@ -1,5 +1,7 @@
 -- function public.pg_get_easter_day
--- drop function
+-- returns easter day
+-- year between 1900-2099 (200 years)
+-- drop function if exists
 drop function if exists public.pg_get_easter_day cascade;
 create or replace function public.pg_get_easter_day(
         in yyyy integer default null) 
@@ -35,4 +37,5 @@ begin
 end;  
 $$ language 'plpgsql';
 
+-- Exemple to use
 -- select pg_get_easter_day(2020);
