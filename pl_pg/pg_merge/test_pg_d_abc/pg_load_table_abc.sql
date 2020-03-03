@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 -- public.d_abc table
 drop table if exists public.d_abc cascade;
 create table if not exists public.d_abc (
