@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 -- in arguments or input values
 -- src_schema : name of source schema by default is public schema 
 -- src_table  : name of source table
@@ -22,15 +23,15 @@ declare
 begin 
 
     sql := 'drop table if exists '|| trg_schema || '.' || trg_table || ' cascade;'  || chr(10);
-	sql := sql || 'create table ' || trg_schema || '.' || trg_table ||' ( ' || chr(10);
+    sql := sql || 'create table ' || trg_schema || '.' || trg_table ||' ( ' || chr(10);
     sql := sql || ' skey serial primary key,' || chr(10);
     sql := sql || (select pg_get_schema_columns(src_schema, src_table));
     sql := sql || ' eff_date timestamp   not null default localtimestamp,' || chr(10);
-	sql := sql || ' end_date timestamp   null,' || chr(10);
+    sql := sql || ' end_date timestamp   null,' || chr(10);
     sql := sql || ' cre_date timestamp   not null default localtimestamp,' || chr(10);
-	sql := sql || ' udt_date timestamp   not null default localtimestamp,' || chr(10);
-	sql := sql || ' curr_ind boolean  default true not null' || chr(10);
-	sql := sql ||  ');'; 
+    sql := sql || ' udt_date timestamp   not null default localtimestamp,' || chr(10);
+    sql := sql || ' curr_ind boolean  default true not null' || chr(10);
+    sql := sql ||  ');'; 
 		
     return sql;
 	
