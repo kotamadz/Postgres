@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 -- create trigger on table d_abc
 -- pg_create_trigger_abc.sql
 
