@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 -- function public.pg_get_julian_date
 -- drop function
 drop function if exists public.pg_get_julian_date cascade;
