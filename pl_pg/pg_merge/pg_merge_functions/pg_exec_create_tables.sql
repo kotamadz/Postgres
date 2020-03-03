@@ -228,3 +228,5 @@ begin
 end;
 
 $BODY$;
+							 
+-- select * from pg_exec_create_tables('public', 'd_abc', 'd_abc_hist', 'datamart', 'dim_abc');
