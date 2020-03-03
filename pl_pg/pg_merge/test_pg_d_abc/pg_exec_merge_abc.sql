@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 /*
     function pg_exec_merge(
         in  src_schema   character varying default null::character varying,
