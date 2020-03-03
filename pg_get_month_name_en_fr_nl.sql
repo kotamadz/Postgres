@@ -1,9 +1,9 @@
+-- Programmed by Kotama@dz
 -- function :: pg_get_month_name_en_fr_nl
 -- returns record have 3 fields : 
 -- month_name_en : the name of the month in English
 -- month_name_fr : the name of the month in French
 -- month_name_nl : the name of the month in Dutch
--- Programmed by Kotama@dz
 drop function if exists public.pg_get_month_name_en_fr_nl cascade;
 create or replace function public.pg_get_month_name_en_fr_nl(
 	tmsp timestamp without time zone default null::timestamp without time zone,
