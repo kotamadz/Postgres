@@ -1,3 +1,4 @@
+-- create dimension table with "with recursive sql" in postgresql
 -- public.dates table
 drop table if exists public.dates;
 create table if not exists public.dates (
