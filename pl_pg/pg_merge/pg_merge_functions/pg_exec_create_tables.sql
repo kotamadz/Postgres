@@ -16,11 +16,11 @@
 drop function if exists pg_exec_create_tables cascade;
 create or replace function pg_exec_create_tables(
         in  src_schema character varying default null::character varying,
-		in  src_table  character varying default null::character varying,
+	in  src_table  character varying default null::character varying,
         in  his_table  character varying default null::character varying,
-		in  trg_schema character varying default null::character varying,
-		in  trg_table  character varying default null::character varying, 
-		in  is_drop    boolean default false)
+	in  trg_schema character varying default null::character varying,
+	in  trg_table  character varying default null::character varying, 
+	in  is_drop    boolean default false)
 		
         returns table (pg_exec_state text, pg_exec_msg text, pg_con text, sql_req text)
 		language 'plpgsql' 
@@ -78,15 +78,15 @@ begin
         return query 
         ( 
             select 
-		        s_null as pg_exec_state,
-		        m_null as pg_exec_msg,
-			    p_null as pg_con,
-			    r_null as sql_req
+		 s_null as pg_exec_state,
+		 m_null as pg_exec_msg,
+		 p_null as pg_con,
+		 r_null as sql_req
 	    ); 
 	else
-	    -- test existing schema target
+	        -- test existing schema target
 		_scht := (select exists(select 1 from pg_namespace where nspname = quote_ident(trg_schema)));
-	    -- test existing schema source 
+	        -- test existing schema source 
 		_sche := (select exists(select 1 from pg_namespace where nspname = quote_ident(src_schema)));
 		-- test existing source table
 		_exists := (select to_regclass(quote_ident(src_schema) || '.' || quote_ident(src_table)));
@@ -94,8 +94,8 @@ begin
 		    return query
 			(
 			    select
-		            s_schema as pg_exec_state,
-		            m_schema as pg_exec_msg,
+		                s_schema as pg_exec_state,
+		                m_schema as pg_exec_msg,
 			        p_notexi as pg_con,
 			        r_notexi as sql_req  
 			);
@@ -103,8 +103,8 @@ begin
 		    return query
 			(
 			    select
-		            s_table  as pg_exec_state,
-		            m_table  as pg_exec_msg,
+		                s_table  as pg_exec_state,
+		                m_table  as pg_exec_msg,
 			        p_notexi as pg_con,
 			        r_notexi as sql_req  
 			);
@@ -112,8 +112,8 @@ begin
 		    return query
 			(
 			    select
-		            s_schema as pg_exec_state,
-		            t_schema as pg_exec_msg,
+		                s_schema as pg_exec_state,
+		                t_schema as pg_exec_msg,
 			        p_notexi as pg_con,
 			        r_notexi as sql_req  
 			);		
@@ -125,16 +125,16 @@ begin
 		    else
 		        begin 
 		            tdim := (select pg_get_dim_table_sql(src_schema, src_table, trg_schema, trg_table));
-                    execute tdim;
-                    get diagnostics t_tdim = pg_context;
+                            execute tdim;
+                            get diagnostics t_tdim = pg_context;
 		            exception when others then 
-                    get stacked diagnostics
-                        d_state = returned_sqlstate,
-                        d_msg   = message_text;
-                end;
+                            get stacked diagnostics
+                                d_state = returned_sqlstate,
+                                d_msg   = message_text;
+                       end;
 		        if d_state is null then
  		           d_state := 'C0'; -- code 0
-			       d_msg   := 'success';           		
+			   d_msg   := 'success';           		
 		        end if;
 		    end if;
 		
@@ -144,80 +144,80 @@ begin
 		       _his := true;
 		    else		
 		        begin
-                    hist := (select pg_get_his_table_sql(src_schema, src_table, his_table));
-                    execute hist;
-                    get diagnostics t_hist = pg_context;
+                            hist := (select pg_get_his_table_sql(src_schema, src_table, his_table));
+                            execute hist;
+                            get diagnostics t_hist = pg_context;
 		            exception when others then 
-                    get stacked diagnostics
-                        h_state = returned_sqlstate,
-                        h_msg   = message_text;
+                            get stacked diagnostics
+                                h_state = returned_sqlstate,
+                                h_msg   = message_text;
 		        end;
 		        if h_state is null then
  		           h_state := 'C0'; -- code 0
-			       h_msg   := 'success';           		
+			   h_msg   := 'success';           		
 		        end if;
 		    end if;
 				
 		    -- return result in table
 		    if _dim = false and _his = false then
-                return query 
-               ( 
-                    select 
+                     return query 
+                     ( 
+                            select 
 		                d_state as pg_exec_state,
 		                d_msg   as pg_exec_msg,
-			            t_tdim  as pg_con,
-			            tdim    as sql_req
+			        t_tdim  as pg_con,
+			       tdim    as sql_req
 		            union
-                    select 
+                            select 
 		                h_state as pg_exec_state,
 		                h_msg   as pg_exec_msg,
-			            t_hist  as pg_con,
-			            hist    as sql_req		
-	            ); 
+			        t_hist  as pg_con,
+			        hist    as sql_req		
+	             ); 
 		    elseif _dim = true and _his = true then
-                return query 
-                ( 
-                    select 
-		                s_drop as pg_exec_state,
-                        t_drop as pg_exec_msg,
-                        p_drop as pg_con,
-                        r_drop as sql_req
-		            union
-                    select 
-		                s_drop as pg_exec_state,
-                        h_drop as pg_exec_msg,
-                        p_drop as pg_con,
-                        r_drop as sql_req		
+                     return query 
+                     ( 
+                           select 
+		               s_drop as pg_exec_state,
+                               t_drop as pg_exec_msg,
+                               p_drop as pg_con,
+                               r_drop as sql_req
+		           union
+                           select 
+		               s_drop as pg_exec_state,
+                               h_drop as pg_exec_msg,
+                               p_drop as pg_con,
+                               r_drop as sql_req		
 	            );
 		    elseif _dim = false and _his = true then
-                return query 
-                ( 
-                    select 
-		                d_state as pg_exec_state,
-		                d_msg   as pg_exec_msg,
-			            t_tdim  as pg_con,
-			            tdim    as sql_req
-		            union
-                    select 
-		                s_drop as pg_exec_state,
-                        h_drop as pg_exec_msg,
-                        p_drop as pg_con,
-                        r_drop as sql_req		
+                     return query 
+                     ( 
+                           select 
+		               d_state as pg_exec_state,
+		               d_msg   as pg_exec_msg,
+			       t_tdim  as pg_con,
+			       tdim    as sql_req
+		           union
+                           select 
+		               s_drop as pg_exec_state,
+                               h_drop as pg_exec_msg,
+                               p_drop as pg_con,
+                               r_drop as sql_req		
 	            );	
 		    elseif _dim = true and _his = false then
-                return query 
-                ( 
-                    select 
-		                s_drop as pg_exec_state,
-                        t_drop as pg_exec_msg,
-                        p_drop as pg_con,
-                        r_drop as sql_req
+                     return query 
+                     ( 
+                           select 
+		               s_drop as pg_exec_state,
+                               t_drop as pg_exec_msg,
+                               p_drop as pg_con,
+                               r_drop as sql_req
 		            union
-                    select 
+                            select 
 		                h_state as pg_exec_state,
 		                h_msg   as pg_exec_msg,
-			            t_hist  as pg_con,
-			            hist    as sql_req		
+			        t_hist  as pg_con,
+			        hist    as sql_req		
 	            );			
 		    end if;
 		
