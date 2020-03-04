@@ -4,7 +4,7 @@
 -- src_table  : name of source table
 -- his_table  : name of history table
 -- out value
--- return sql : request create history table
+-- return sql : request to create history table
 
 drop function if exists pg_get_his_table_sql cascade; 
 create or replace function pg_get_his_table_sql(
