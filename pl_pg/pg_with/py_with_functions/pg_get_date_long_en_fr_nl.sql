@@ -1,3 +1,11 @@
+-- Programmed by Kotama.dz(ETL Developper/ BI Cognos)
+-- in tsmp :: type timestamp or date
+-- returns record with 3 fields :
+-- date_long_en :: long date in English
+-- date_long_fr :: long date in French
+-- date_long_nl :: long date in Dutch
+
+drop function if exists public.pg_get_date_long_en_fr_nl cascade;
 create or replace function public.pg_get_date_long_en_fr_nl(
 	tmsp timestamp without time zone default null::timestamp without time zone,
 	out date_long_en text,
@@ -18,16 +26,16 @@ declare
 	   date_long_en := null;
 	   date_long_fr := null;
 	   date_long_nl := null;
-	else
+    else
         dd := extract(day  from tmsp);
-		yy := extract(year from tmsp);
-		mf := (select month_name_fr from pg_get_month_name_en_fr_nl(tmsp));
-		mn := (select month_name_nl from pg_get_month_name_en_fr_nl(tmsp));
-		me := (select month_name_en from pg_get_month_name_en_fr_nl(tmsp));
-	    date_long_en := dd || ' ' || me || ' ' || yy;
-	    date_long_fr := dd || ' ' || mf || ' ' || yy;
-	    date_long_nl := dd || ' ' || mn || ' ' || yy;      
-	end if;
+	yy := extract(year from tmsp);
+	mf := (select month_name_fr from pg_get_month_name_en_fr_nl(tmsp));
+	mn := (select month_name_nl from pg_get_month_name_en_fr_nl(tmsp));
+	me := (select month_name_en from pg_get_month_name_en_fr_nl(tmsp));
+	date_long_en := dd || ' ' || me || ' ' || yy;
+	date_long_fr := dd || ' ' || mf || ' ' || yy;
+	date_long_nl := dd || ' ' || mn || ' ' || yy;      
+     end if;
   end;
 $BODY$;
 
