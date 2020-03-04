@@ -1,6 +1,6 @@
 # Postgres
 PL/Python - PL/Pgsql
-In this post, i write some stored procedure in PL/Python and PL/Pgsql
+In this post, i write some stored procedures in PL/Python and PL/Pgsql
 
 # Postgres/pl_pg/pg_get_functions :: 
 This folder contains stored procedures(code pl/pgsql) used to calculate easter day, pentcost day, factorial integer...
