@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 -- type like record :: fibonacci_sequence
 -- drop type fibonacci_sequence
 drop type if exists fibonacci_sequence cascade;
