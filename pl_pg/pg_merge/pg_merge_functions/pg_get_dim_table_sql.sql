@@ -38,4 +38,4 @@ begin
 end;
 $body$;
 
--- select * from pg_get_dim_table_sql('public', 'd_abc', 'datamart', 'dim_abc');
+-- select pg_get_dim_table_sql('public', 'd_abc', 'datamart', 'dim_abc');
