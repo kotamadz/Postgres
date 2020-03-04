@@ -30,3 +30,6 @@ begin
 	
 end;
 $BODY$;
+
+-- select pg_get_his_table_sql('public', 'd_abc', 'd_abc_hist');
+						
