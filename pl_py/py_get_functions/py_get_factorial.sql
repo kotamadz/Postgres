@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 -- function function public.py_get_factorial
 -- drop function
 drop function if exists public.py_get_factorial cascade; 
