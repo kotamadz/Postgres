@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 /*
 function py_exec_merge_sql(
         in  src_schema   character varying default null::character varying,
