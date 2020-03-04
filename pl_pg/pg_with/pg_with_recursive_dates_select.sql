@@ -1,6 +1,6 @@
 -- with recursive
 with recursive r_dates(
-    skey, 
+        skey, 
 	year, 
 	day_key, 
 	date_ue, 
@@ -26,17 +26,17 @@ with recursive r_dates(
 	half,
 	iseasterday,
 	isascensionday,
-    ispentecostday
+        ispentecostday
 	) 
 as (
   select    -- anchor member
-    1::integer,                                                                -- type integer
-    1999::integer,                                                             -- type integer
-    to_char(cast('1999-12-31' as timestamp), 'yyyymmdd'),                      -- type string
-    to_char(cast('1999-12-31' as timestamp), 'dd/mm/yyyy') || ' 00:00:00',     -- type string
-    to_char(cast('1999-12-31' as timestamp), 'dd-mm-yyyy') || ' 00:00:00',     -- type string
-    cast('1999-12-31' as timestamp),                                           -- type date 
-    to_char(cast('1999-12-31' as timestamp), 'yyyy/mm/dd') || ' 00:00:00',     -- type string
+    1::integer,                                                                    -- type integer
+    1999::integer,                                                                 -- type integer
+    to_char(cast('1999-12-31' as timestamp), 'yyyymmdd'),                          -- type string
+    to_char(cast('1999-12-31' as timestamp), 'dd/mm/yyyy') || ' 00:00:00',         -- type string
+    to_char(cast('1999-12-31' as timestamp), 'dd-mm-yyyy') || ' 00:00:00',         -- type string
+    cast('1999-12-31' as timestamp),                                               -- type date 
+    to_char(cast('1999-12-31' as timestamp), 'yyyy/mm/dd') || ' 00:00:00',         -- type string
 	py_get_julian_date(cast('1999-12-31' as timestamp)),                       -- type integer
 	(select date_long_fr  from py_get_date_long_en_fr_nl('1999-12-31')),       -- type string
 	(select date_long_nl  from py_get_date_long_en_fr_nl('1999-12-31')),       -- type string
@@ -50,8 +50,8 @@ as (
 	    when extract(dow from timestamp '1999-12-31') = 0 then 7               -- type integer
 		else extract(dow from timestamp '1999-12-31')
 	end,
-    extract(day from timestamp '1999-12-31'),                                  -- type integer   
-    extract(doy from timestamp '1999-12-31'),	                               -- type integer 
+    extract(day from timestamp '1999-12-31'),                                      -- type integer   
+    extract(doy from timestamp '1999-12-31'),	                                   -- type integer 
 	to_char(timestamp '1999-12-31', 'W')::integer,                             -- type integer
 	to_char(timestamp '1999-12-31', 'WW')::integer,                            -- type integer
 	extract(month from timestamp '1999-12-31')::integer,                       -- type integer
@@ -61,15 +61,15 @@ as (
 		else 2::integer
 	end,
 	case                                                                       -- type boolean
-        when (select easter from py_get_easter_ascension_pentecost(1999::integer))	= cast('1999-12-31' as timestamp) then 't'::boolean
+        when (select easter from py_get_easter_ascension_pentecost(1999::integer)) = cast('1999-12-31' as timestamp) then 't'::boolean
 		else 'f'::boolean
 	end,
 	case                                                                       -- type boolean
-        when (select ascension from py_get_easter_ascension_pentecost(1999::integer))	= cast('1999-12-31' as timestamp) then 't'::boolean
+        when (select ascension from py_get_easter_ascension_pentecost(1999::integer)) = cast('1999-12-31' as timestamp) then 't'::boolean
 		else 'f'::boolean
 	end,
 	case                                                                       -- type boolean
-        when (select pentencost from py_get_easter_ascension_pentecost(1999::integer))	= cast('1999-12-31' as timestamp) then 't'::boolean
+        when (select pentencost from py_get_easter_ascension_pentecost(1999::integer)) = cast('1999-12-31' as timestamp) then 't'::boolean
 		else 'f'::boolean
 	end
   union all
@@ -120,7 +120,7 @@ as (
  where r_dates.year < 2021   -- termination condition(20 years)
 )
 select  
-    skey, 
+        skey, 
 	year, 
 	day_key, 
 	date_ue, 
@@ -146,6 +146,6 @@ select
 	half,
 	iseasterday,
 	isascensionday,
-    ispentecostday 
+        ispentecostday 
 from r_dates;
 
