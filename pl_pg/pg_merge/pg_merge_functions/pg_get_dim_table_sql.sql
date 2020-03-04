@@ -5,7 +5,7 @@
 -- trg_schema : name of target schema exemple datamart schema 
 -- trg_table  : name of target table
 -- out value
--- return sql : request create dimention table 
+-- return sql : request to create dimention table 
 
 drop function if exists pg_get_dim_table_sql cascade;
 create or replace function pg_get_dim_table_sql(
