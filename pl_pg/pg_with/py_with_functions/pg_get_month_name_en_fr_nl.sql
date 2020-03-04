@@ -1,3 +1,11 @@
+-- Programmed by Kotama.dz(ETL Developper/ BI Cognos)
+-- in tsmp :: type timestamp or date
+-- returns record with 3 fields :
+-- month_name_en :: name of month in English
+-- month_name_fr :: name of month in French
+-- month_name_nl :: name of month in Dutch
+
+drop function if exists public.pg_get_month_name_en_fr_nl cascade;
 create or replace function public.pg_get_month_name_en_fr_nl(
 	tmsp timestamp without time zone default null::timestamp without time zone,
 	out month_name_en text,
@@ -19,52 +27,52 @@ declare
         case dd
             when 1 then
                month_name_en := 'January';
-			   month_name_fr := 'Janvier';
-			   month_name_nl := 'Januari';
+	       month_name_fr := 'Janvier';
+	       month_name_nl := 'Januari';
             when 2 then
                month_name_en := 'February';
-			   month_name_fr := 'Février';
-			   month_name_nl := 'Februari';
+	       month_name_fr := 'Février';
+	       month_name_nl := 'Februari';
             when 3 then
                month_name_en := 'March';
-			   month_name_fr := 'Mars';
-			   month_name_nl := 'Maart';
+	       month_name_fr := 'Mars';
+	       month_name_nl := 'Maart';
             when 4 then
                month_name_en := 'April';
-			   month_name_fr := 'Avril';
-			   month_name_nl := 'April';
+	       month_name_fr := 'Avril';
+	       month_name_nl := 'April';
             when 5 then
                month_name_en := 'May';
-			   month_name_fr := 'Mai';
-			   month_name_nl := 'Mei';
+	       month_name_fr := 'Mai';
+	       month_name_nl := 'Mei';
             when 6 then
                month_name_en := 'June';
-			   month_name_fr := 'Juin';
-			   month_name_nl := 'Juni';
+	       month_name_fr := 'Juin';
+	       month_name_nl := 'Juni';
             when 7 then
                month_name_en := 'July';
-			   month_name_fr := 'Juillet';
-			   month_name_nl := 'Juli';
+	       month_name_fr := 'Juillet';
+	       month_name_nl := 'Juli';
             when 8 then
                month_name_en := 'August';
-			   month_name_fr := 'Août';
-			   month_name_nl := 'Augustus';
+	       month_name_fr := 'Août';
+	       month_name_nl := 'Augustus';
             when 9 then
                month_name_en := 'September';
-			   month_name_fr := 'Septembre';
-			   month_name_nl := 'September';
+	       month_name_fr := 'Septembre';
+	       month_name_nl := 'September';
             when 10 then
                month_name_en := 'October';
-			   month_name_fr := 'Octobre';
-			   month_name_nl := 'Oktober';
+	       month_name_fr := 'Octobre';
+	       month_name_nl := 'Oktober';
             when 11 then
                month_name_en := 'November';
-			   month_name_fr := 'Novembre';
-			   month_name_nl := 'November';
+	       month_name_fr := 'Novembre';
+	       month_name_nl := 'November';
             else
                month_name_en := 'December';
-			   month_name_fr := 'Décembre';
-			   month_name_nl := 'December';			   	    	
+	       month_name_fr := 'Décembre';
+	       month_name_nl := 'December';			   	    	
         end case;
 	end if;
   end;
