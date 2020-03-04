@@ -62,45 +62,45 @@ with recursive r_dates(
 as (
   select    -- anchor member
     1::integer,                                                                -- type integer
-    1899::integer,                                                             -- type integer
-    to_char(cast('1899-12-31' as timestamp), 'yyyymmdd'),                      -- type string
-    to_char(cast('1899-12-31' as timestamp), 'dd/mm/yyyy') || ' 00:00:00',     -- type string
-    to_char(cast('1899-12-31' as timestamp), 'dd-mm-yyyy') || ' 00:00:00',     -- type string
-    cast('1899-12-31' as timestamp),                                           -- type date 
-    to_char(cast('1899-12-31' as timestamp), 'yyyy/mm/dd') || ' 00:00:00',     -- type string
-	pg_get_julian_date(cast('1899-12-31' as timestamp)),                       -- type integer
-	(select date_long_fr  from pg_get_date_long_en_fr_nl('1899-12-31')),       -- type string
-	(select date_long_nl  from pg_get_date_long_en_fr_nl('1899-12-31')),       -- type string
-	(select date_full_fr  from pg_get_date_full_en_fr_nl('1899-12-31')),       -- type string
-	(select date_full_nl  from pg_get_date_full_en_fr_nl('1899-12-31')),       -- type string
-	(select day_name_fr   from pg_get_day_name_en_fr_nl('1899-12-31')),        -- type string
-	(select day_name_nl   from pg_get_day_name_en_fr_nl('1899-12-31')),        -- type string
-	(select month_name_fr from pg_get_month_name_en_fr_nl('1899-12-31')),      -- type string
-	(select month_name_nl from pg_get_month_name_en_fr_nl('1899-12-31')),      -- type string
+    1999::integer,                                                             -- type integer
+    to_char(cast('1999-12-31' as timestamp), 'yyyymmdd'),                      -- type string
+    to_char(cast('1999-12-31' as timestamp), 'dd/mm/yyyy') || ' 00:00:00',     -- type string
+    to_char(cast('1999-12-31' as timestamp), 'dd-mm-yyyy') || ' 00:00:00',     -- type string
+    cast('1999-12-31' as timestamp),                                           -- type date 
+    to_char(cast('1999-12-31' as timestamp), 'yyyy/mm/dd') || ' 00:00:00',     -- type string
+	py_get_julian_date(cast('1999-12-31' as timestamp)),                       -- type integer
+	(select date_long_fr  from py_get_date_long_en_fr_nl('1999-12-31')),       -- type string
+	(select date_long_nl  from py_get_date_long_en_fr_nl('1999-12-31')),       -- type string
+	(select date_full_fr  from py_get_date_full_en_fr_nl('1999-12-31')),       -- type string
+	(select date_full_nl  from py_get_date_full_en_fr_nl('1999-12-31')),       -- type string
+	(select day_name_fr   from py_get_day_name_en_fr_nl('1999-12-31')),        -- type string
+	(select day_name_nl   from py_get_day_name_en_fr_nl('1999-12-31')),        -- type string
+	(select month_name_fr from py_get_month_name_en_fr_nl('1999-12-31')),      -- type string
+	(select month_name_nl from py_get_month_name_en_fr_nl('1999-12-31')),      -- type string
 	case
-	    when extract(dow from timestamp '1899-12-31') = 0 then 7               -- type integer
-		else extract(dow from timestamp '1899-12-31')
+	    when extract(dow from timestamp '1999-12-31') = 0 then 7               -- type integer
+		else extract(dow from timestamp '1999-12-31')
 	end,
-    extract(day from timestamp '1899-12-31'),                                  -- type integer   
-    extract(doy from timestamp '1899-12-31'),	                               -- type integer 
-	to_char(timestamp '1899-12-31', 'W')::integer,                             -- type integer
-	to_char(timestamp '1899-12-31', 'WW')::integer,                            -- type integer
-	extract(month from timestamp '1899-12-31')::integer,                       -- type integer
-	extract(quarter from timestamp '1899-12-31')::integer,                     -- type integer
+    extract(day from timestamp '1999-12-31'),                                  -- type integer   
+    extract(doy from timestamp '1999-12-31'),	                               -- type integer 
+	to_char(timestamp '1999-12-31', 'W')::integer,                             -- type integer
+	to_char(timestamp '1999-12-31', 'WW')::integer,                            -- type integer
+	extract(month from timestamp '1999-12-31')::integer,                       -- type integer
+	extract(quarter from timestamp '1999-12-31')::integer,                     -- type integer
 	case                                                                       -- type integer
-	    when extract(quarter from timestamp '1899-12-31') in ('1','2') then 1::integer  
+	    when extract(quarter from timestamp '1999-12-31') in ('1','2') then 1::integer  
 		else 2::integer
 	end,
 	case                                                                       -- type boolean
-        when (select easter from pg_get_easter_ascension_pentecost(1899::integer))	= cast('1899-12-31' as timestamp) then 't'::boolean
+        when (select easter from py_get_easter_ascension_pentecost(1999::integer)) = cast('1999-12-31' as timestamp) then 't'::boolean
 		else 'f'::boolean
 	end,
 	case                                                                       -- type boolean
-        when (select ascension from pg_get_easter_ascension_pentecost(1899::integer))	= cast('1899-12-31' as timestamp) then 't'::boolean
+        when (select ascension from py_get_easter_ascension_pentecost(1999::integer)) = cast('1999-12-31' as timestamp) then 't'::boolean
 		else 'f'::boolean
 	end,
 	case                                                                       -- type boolean
-        when (select pentencost from pg_get_easter_ascension_pentecost(1899::integer))	= cast('1899-12-31' as timestamp) then 't'::boolean
+        when (select pentencost from py_get_easter_ascension_pentecost(1999::integer)) = cast('1999-12-31' as timestamp) then 't'::boolean
 		else 'f'::boolean
 	end
   union all
@@ -112,15 +112,15 @@ as (
 	to_char(r_dates.date_us + interval '1 day', 'dd-mm-yyyy') || ' 00:00:00',
 	r_dates.date_us + interval '1 day',
 	to_char(r_dates.date_us + interval '1 day', 'yyyy/mm/dd') || ' 00:00:00',
-	pg_get_julian_date(r_dates.date_us + interval '1 day'),
-	(select date_long_fr  from pg_get_date_long_en_fr_nl(r_dates.date_us + interval '1 day')),  
-	(select date_long_nl  from pg_get_date_long_en_fr_nl(r_dates.date_us + interval '1 day')),
-	(select date_full_fr  from pg_get_date_full_en_fr_nl(r_dates.date_us + interval '1 day')),
-	(select date_full_nl  from pg_get_date_full_en_fr_nl(r_dates.date_us + interval '1 day')),
-	(select day_name_fr   from pg_get_day_name_en_fr_nl(r_dates.date_us + interval '1 day')),
-	(select day_name_nl   from pg_get_day_name_en_fr_nl(r_dates.date_us + interval '1 day')),
-	(select month_name_fr from pg_get_month_name_en_fr_nl(r_dates.date_us + interval '1 day')),
-	(select month_name_nl from pg_get_month_name_en_fr_nl(r_dates.date_us + interval '1 day')),
+	py_get_julian_date(r_dates.date_us + interval '1 day'),
+	(select date_long_fr  from py_get_date_long_en_fr_nl(r_dates.date_us + interval '1 day')),  
+	(select date_long_nl  from py_get_date_long_en_fr_nl(r_dates.date_us + interval '1 day')),
+	(select date_full_fr  from py_get_date_full_en_fr_nl(r_dates.date_us + interval '1 day')),
+	(select date_full_nl  from py_get_date_full_en_fr_nl(r_dates.date_us + interval '1 day')),
+	(select day_name_fr   from py_get_day_name_en_fr_nl(r_dates.date_us + interval '1 day')),
+	(select day_name_nl   from py_get_day_name_en_fr_nl(r_dates.date_us + interval '1 day')),
+	(select month_name_fr from py_get_month_name_en_fr_nl(r_dates.date_us + interval '1 day')),
+	(select month_name_nl from py_get_month_name_en_fr_nl(r_dates.date_us + interval '1 day')),
 	case
 	    when extract(dow from r_dates.date_us + interval '1 day') = 0 then 7
 		else extract(dow from r_dates.date_us + interval '1 day')
@@ -136,19 +136,19 @@ as (
 		else 2::integer
 	end,
 	case
-        when (select easter from pg_get_easter_ascension_pentecost(cast(extract(year from r_dates.date_us + interval '1 day' ) as integer))) = cast('1899-12-31' as timestamp) then 't'::boolean
+        when (select easter from py_get_easter_ascension_pentecost(cast(extract(year from r_dates.date_us + interval '1 day' ) as integer))) = cast('1999-12-31' as timestamp) then 't'::boolean
 		else 'f'::boolean
 	end,
 	case
-        when (select ascension from pg_get_easter_ascension_pentecost(cast(extract(year from r_dates.date_us + interval '1 day' ) as integer)))	= cast('1899-12-31' as timestamp) then 't'::boolean
+        when (select ascension from py_get_easter_ascension_pentecost(cast(extract(year from r_dates.date_us + interval '1 day' ) as integer)))	= cast('1999-12-31' as timestamp) then 't'::boolean
 		else 'f'::boolean
 	end,
 	case
-        when (select pentencost from pg_get_easter_ascension_pentecost(cast(extract(year from r_dates.date_us + interval '1 day' ) as integer))) = cast('1899-12-31' as timestamp) then 't'::boolean
+        when (select pentencost from py_get_easter_ascension_pentecost(cast(extract(year from r_dates.date_us + interval '1 day' ) as integer))) = cast('1999-12-31' as timestamp) then 't'::boolean
 		else 'f'::boolean
 	end 
  from r_dates
- where r_dates.year < 1903   -- termination condition(200 years)
+ where r_dates.year < 2020   -- termination condition(20 years)
 )
 INSERT INTO dates (
     skey, 
