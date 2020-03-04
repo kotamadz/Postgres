@@ -31,4 +31,23 @@ select
    yyyy, 
   (select public.py_get_easter_day(yyyy)) as easter
 from years;
+
+create table years(yyyy integer);
+insert into years (yyyy) values (2010);
+insert into years (yyyy) values (2011);
+insert into years (yyyy) values (2012);
+insert into years (yyyy) values (2013);
+insert into years (yyyy) values (2014);
+insert into years (yyyy) values (2015);
+insert into years (yyyy) values (2016);
+insert into years (yyyy) values (2017);
+insert into years (yyyy) values (2018);
+insert into years (yyyy) values (2019);
+insert into years (yyyy) values (2020);
+insert into years (yyyy) values (2021);
+insert into years (yyyy) values (2022);
+insert into years (yyyy) values (2023);
+insert into years (yyyy) values (2024);
+insert into years (yyyy) values (2025);
+
 */
