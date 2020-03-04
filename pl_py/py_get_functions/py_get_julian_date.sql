@@ -1,3 +1,4 @@
+-- Programmed by Kotama.dz
 -- function function public.py_get_julian_date
 -- drop function
 drop function if exists public.py_get_julian_date cascade; 
