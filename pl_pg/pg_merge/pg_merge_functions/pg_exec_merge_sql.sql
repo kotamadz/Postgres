@@ -2,14 +2,14 @@
 /*
 function pg_get_merge_sql(
         in  src_schema   character varying,
-		in  src_table    character varying,
+	in  src_table    character varying,
         in  his_table    character varying,
-		in  trg_schema   character varying,
-		in  trg_table    character varying,
-		in  bk           character varying,
-		out row_del      text,
-		out row_ins      text,
-		out row_upd      text)
+	in  trg_schema   character varying,
+	in  trg_table    character varying,
+	in  bk           character varying,
+	out row_del      text,
+	out row_ins      text,
+	out row_upd      text)
 */
 
 -- in arguments or input values
@@ -135,22 +135,22 @@ begin
             end;
 		
             -- insert sql 
-		    begin
+	    begin
                 rins := (select ins_sql from pg_get_merge_sql(src_schema, src_table, his_table, trg_schema, trg_table, bk));
                 execute rins;
                 get diagnostics inserted_row = row_count;
-		        exception when others then 
+		exception when others then 
                 get stacked diagnostics
                     rins_s = returned_sqlstate,
                     rins_m = message_text;
 		    end;
   
             -- update sql
-		    begin
+	    begin
                 rupd := (select upd_sql from pg_get_merge_sql(src_schema, src_table, his_table, trg_schema, trg_table, bk));
                 execute rupd;
                 get diagnostics updated_row = row_count;
-		        exception when others then 
+		exception when others then 
                 get stacked diagnostics
                     rupd_s = returned_sqlstate,
                     rupd_m = message_text;
@@ -158,36 +158,33 @@ begin
 		
 	        if deleted_row is null then 
 		        deleted_row := 0;
-		    end if;
+		end if;
 		
-		    if inserted_row is null then 
+		if inserted_row is null then 
 		        inserted_row := 0;
-		    end if;
+		end if;
 
-		    if updated_row is null then 
+                if updated_row is null then 
 		        updated_row := 0;
-		    end if;
+		end if;
 		
 		    pg_exec_state := 'C0'; -- code 0
-			pg_exec_msg   := 'success';	
+		    pg_exec_msg   := 'success';	
 		    if rdel_s is not null and rins_s is not null and rupd_s is not null then
 		        pg_exec_state := rdel_s || ' ' || rins_s || ' ' || rupd_s;
-			    pg_exec_msg   := rdel_m || ' ' || rins_m || ' ' || rupd_m;
+			pg_exec_msg   := rdel_m || ' ' || rins_m || ' ' || rupd_m;
 		    elseif rdel_s is null and rins_s is not null and rupd_s is not null then
 		        pg_exec_state := pg_exec_state || ' ' || rins_s || ' ' || rupd_s;
-			    pg_exec_msg   := pg_exec_msg   || ' ' || rins_m || ' ' || rupd_m;
-            elseif rdel_s is not null and rins_s is null and rupd_s is not null then 	
+			pg_exec_msg   := pg_exec_msg   || ' ' || rins_m || ' ' || rupd_m;
+                    elseif rdel_s is not null and rins_s is null and rupd_s is not null then 	
 		        pg_exec_state := pg_exec_state || ' ' || rdel_s || ' ' || rupd_s;
-			    pg_exec_msg   := pg_exec_msg   || ' ' || rdel_m || ' ' || rupd_m;
-            if rdel_s is not null and rins_s is not null and rupd_s is null then	
+			pg_exec_msg   := pg_exec_msg   || ' ' || rdel_m || ' ' || rupd_m;
+                    elseif rdel_s is not null and rins_s is not null and rupd_s is null then	
 		        pg_exec_state := pg_exec_state || ' ' || rdel_s || ' ' || rins_s;
-			    pg_exec_msg   := pg_exec_msg   || ' ' || rdel_m || ' ' || rins_m;			
+			pg_exec_msg   := pg_exec_msg   || ' ' || rdel_m || ' ' || rins_m;			
 		    end if;
 			
 		end if;
-		
-    end if;
-	
   end if;
   
 end;
