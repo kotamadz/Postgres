@@ -79,7 +79,7 @@ upd_row := 'with upd as ( ' || chr(10)
     -- open the cursor
     open cur_sche(src_schema, src_table);
     loop
-    -- fetch row into the film
+    -- fetch row into rec_sche
         fetch cur_sche into rec_sche;
     -- exit when no more row to fetch
         exit when not found; 
