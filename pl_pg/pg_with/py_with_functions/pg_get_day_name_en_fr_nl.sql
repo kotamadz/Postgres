@@ -1,3 +1,11 @@
+-- Programmed by Kotama.dz(ETL Developper/ BI Cognos)
+-- in tsmp :: type timestamp or date
+-- returns record with 3 fields :
+-- day_name_en :: name of day in English
+-- day_name_fr :: name of day in French
+-- day_name_nl :: name of day in Dutch
+
+drop function if exists public.pg_get_day_name_en_fr_nl cascade;
 create or replace function public.pg_get_day_name_en_fr_nl(
 	tmsp timestamp without time zone default null::timestamp without time zone,
 	out day_name_en text,
@@ -19,32 +27,32 @@ declare
        case dd
            when 0 then
                day_name_en := 'Sunday';
-			   day_name_fr := 'Dimanche';
-			   day_name_nl := 'Zondag';
+	       day_name_fr := 'Dimanche';
+	       day_name_nl := 'Zondag';
            when 1 then
                day_name_en := 'Monday';
-			   day_name_fr := 'Lundi';
-			   day_name_nl := 'Maandag';
+	       day_name_fr := 'Lundi';
+	       day_name_nl := 'Maandag';
            when 2 then
                day_name_en := 'Tuesday';
-			   day_name_fr := 'Mardi';
-			   day_name_nl := 'Dinsdag';
+	       day_name_fr := 'Mardi';
+	       day_name_nl := 'Dinsdag';
            when 3 then
                day_name_en := 'Wednesday';
-			   day_name_fr := 'Mercredi';
-			   day_name_nl := 'Woensdag';
+	       day_name_fr := 'Mercredi';
+	       day_name_nl := 'Woensdag';
            when 4 then
                day_name_en := 'Thursday';
-			   day_name_fr := 'Jeudi';
-			   day_name_nl := 'Donderdag';
+	       day_name_fr := 'Jeudi';
+	       day_name_nl := 'Donderdag';
            when 5 then
                day_name_en := 'Friday';
-			   day_name_fr := 'Vendredi';
-			   day_name_nl := 'Vrijdag';
+	       day_name_fr := 'Vendredi';
+	       day_name_nl := 'Vrijdag';
            else
                day_name_en := 'Saturday';
-			   day_name_fr := 'Samedi';
-			   day_name_nl := 'Zaterdag';			   	    	
+	       day_name_fr := 'Samedi';
+	      day_name_nl := 'Zaterdag';			   	    	
           end case;
 	end if;
   end;
